@@ -1,0 +1,21 @@
+/*This is element selector*/
+p {
+    color: yellow;
+    font-weight: bold;
+}
+
+/*This is id selector*/
+#second {
+    color: green;
+}
+
+/*This is class selector*/
+.make_color {
+    color: red;
+}
+
+/*This is attribute selector*/
+a[href]{
+    color: black;
+    font-weight: bold;
+}
