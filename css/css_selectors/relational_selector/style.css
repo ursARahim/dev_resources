@@ -1,0 +1,34 @@
+/*In css we have some relational selector to select element.*/
+/*So we don't have to all time use the id and class selector.*/
+/*We can select child sibling from the parent element id*/
+
+/*To select all the <P> element inside the section*/
+/*This will select all the <p> element inside the section*/
+/*
+#section_element p{
+    color: green;
+    font-weight: bold;
+}
+*/
+
+/*This will select only the direct child*/
+/*
+#section_element > p {
+    color: green;
+    font-weight: bold;
+}
+*/
+
+/*This will select only the first sibling of the section element*/
+/*
+#section_element + p {
+    color: green;
+    font-weight: bold;
+}
+*/
+
+/*This will select all the siblings of the section element*/
+#section_element ~ p {
+    color: green;
+    font-weight: bold;
+}
