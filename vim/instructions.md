@@ -25,7 +25,32 @@ Run this from terminal to open the default VIM window
 
 This will open testfile.txt in edit mode or create a new text file with name testfile.txt
 
+### Open a file
+`vim filename.txt` 
+
+Write **vim filename.txt** to open a file using VIM
+
 ### Insert text
 `i` 
 
 Press **i** to enter in insert mode to write any text file.
+
+### Save file
+`:w` 
+
+Write **:w** to save file
+
+### Quit file
+`:q` 
+
+Write **:q** to quit file
+
+### Quit file without save
+`:q!` 
+
+Write **:q!** to quit file without save. If you write something but don't want to save it then write this.
+
+### Save and Quit at one time
+`:wq` 
+
+Write **:wq** to save and quit at one time
