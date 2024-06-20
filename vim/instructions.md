@@ -13,7 +13,7 @@ They are:
 
 4. **Visual Mode**: You use this mode to visually select some text and run commands over that section of code. You can switch to this mode by pressing `v` from the command mode.
 
-## Useful Commands
+## Useful Basic Commands
 
 ### Open default VIM window (buffer)
 `vim` 
@@ -28,9 +28,9 @@ This will open testfile.txt in edit mode or create a new text file with name tes
 ### Open a file
 `vim filename.txt` 
 
-Write **vim filename.txt** to open a file using VIM
+Type **vim filename.txt** to open a file using VIM
 
-### Insert text
+### Insert mode
 `i` 
 
 Press **i** to enter in insert mode to write any text file.
@@ -38,19 +38,57 @@ Press **i** to enter in insert mode to write any text file.
 ### Save file
 `:w` 
 
-Write **:w** to save file
+Type **:w** to save file
 
 ### Quit file
 `:q` 
 
-Write **:q** to quit file
+Type **:q** to quit file
 
 ### Quit file without save
 `:q!` 
 
-Write **:q!** to quit file without save. If you write something but don't want to save it then write this.
+Type **:q!** to quit file without save. If you write something but don't want to save it then Type this.
 
 ### Save and Quit at one time
 `:wq` 
 
-Write **:wq** to save and quit at one time
+Type **:wq** to save and quit at one time
+
+## Cut, Copy, and Paste
+
+### Copy
+To copy any text insert into **visual** mode by typing `v`
+select text by moving cursor, then to copy press `y`
+
+### Cut
+To cut a text type `d`
+
+### Paste
+To paste type `p`
+
+
+## Undo and Redo
+
+### Undo
+To undo type `u`
+
+### Redo 
+To redo type `CTRL+R`
+
+## Navigate or move cursor around a file
+- **h** = move cursor left
+- **l** = move cursor right
+- **k** = move cursor up
+- **j** = move cursor down
+
+## Delete character, word, line
+- **x** = delete the character that holds the cursor
+- **dw** = dw stands for delete word. It will delete the word that the cursor holds
+- **dd** = by typing double dd it will delete the whole line
+
+## Beginning and end of a Line or the File
+- **0** = Move beginning of the line
+- **$** = Move end of the line
+- **gg** = Move beginning of the file
+- **G** = Move end of the file
