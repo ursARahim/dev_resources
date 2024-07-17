@@ -1,0 +1,35 @@
+# File permissions
+
+#### Add permission
+```
+chmod u+x deploy.sh  # Giving execute permission of file deploy.sh to owner
+chmod g+x deploy.sh  # Giving execute permission of file deploy.sh to group
+chmod o+x deploy.sh  # Giving execute permission of file deploy.sh to other
+
+chmod ugo+x deploy.sh  # Giving all with one command
+chmod ug+x+w-r deploy.sh  # Giving owner and group to execute, and write operation. and removing read operation
+
+NB: You can use r, w, x for read, write, execute
+```
+
+#### Remove permission
+
+```
+chmod u-x deploy.sh  # Remove execute permission of file deploy.sh to owner
+chmod g-x deploy.sh  # Remove execute permission of file deploy.sh to group
+chmod o-x deploy.sh  # Remove execute permission of file deploy.sh to other
+
+chmod ugo-x deploy.sh  # Giving all with one command
+
+NB: You can use r, w, x for read, write, execute
+```
+
+#### Shorthand property for permission
+```
+R = 4
+W = 2
+X = 1
+
+chmod 777 deploy.sh  # giving owner, group, and other all permissions
+chmod 644 deploy.sh  # giving owner to read+write, group to read, and other to read permissions
+```
