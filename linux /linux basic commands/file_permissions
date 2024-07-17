@@ -33,3 +33,9 @@ X = 1
 chmod 777 deploy.sh  # giving owner, group, and other all permissions
 chmod 644 deploy.sh  # giving owner to read+write, group to read, and other to read permissions
 ```
+
+#### Change file owner
+`chown ownername deploy.sh`
+
+#### Change group owner
+`chgrp groupname deploy.sh`
