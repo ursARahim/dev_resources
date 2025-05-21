@@ -1,5 +1,4 @@
 name: Advanced CI CD pipeline
-run-name: Testing Run name
 on:
   push:
     branches:
