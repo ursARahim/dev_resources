@@ -19,6 +19,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Runs python external script
-        run: |
-          chmod +x ./pyscript.py
-          ./pyscript.py
+        run: python3 pyscript.py
