@@ -1,5 +1,5 @@
 name: Advanced CI CD pipeline
-
+run-name: Testing Run name
 on:
   push:
     branches:
@@ -14,4 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check Python version
-        run: python3 --version
+        run: |
+          python3 --version
+          python3 -m pip --version
