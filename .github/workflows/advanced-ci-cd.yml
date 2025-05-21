@@ -14,5 +14,9 @@ jobs:
     steps:
       - name: Check Python version
         run: python3 --version
+
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+
       - name: Runs python external script
         run: ./pyscript.py
