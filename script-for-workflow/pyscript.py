@@ -3,6 +3,7 @@ import requests
 OWNER = "ursARahim"
 REPO = "dev_resources"
 BASE_URL = f"https://api.github.com/repos/{OWNER}/{REPO}"
+PER_PAGE = 100
 
 def fetch_commits_and_print_specific_commit_detail():
     try:
@@ -25,49 +26,59 @@ def fetch_commits_and_print_specific_commit_detail():
             print(f"Date: {date}")
         else:
             print("No commits found.")
+
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching commits: {e}")
 
 def fetch_all_issues_with_status():
     try:
-        url = f"{BASE_URL}/issues"
-        response = requests.get(url, params={"state": "all"})
-        response.raise_for_status()
-        issues = response.json()
-        
-        if issues:
-            print("\nAll Issues:")
+        print("\nAll Issues:")
+        page = 1
+        while True:
+            url = f"{BASE_URL}/issues"
+            response = requests.get(url, params={"state": "all", "per_page": PER_PAGE, "page": page})
+            response.raise_for_status()
+            issues = response.json()
+
+            if not issues:
+                break
+
             for issue in issues:
                 if 'pull_request' in issue:
                     continue
                 number = issue['number']
                 title = issue['title']
                 state = issue['state']
-                print(f"{number}: {title} [{state}]")
-        else:
-            print("No issues found.")
+                print(f"Issue #{number}: {title} [{state}]")
+
+            page += 1
+
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching issues: {e}")
 
 def fetch_pull_requests():
     try:
-        url = f"{BASE_URL}/pulls"
-        response = requests.get(url, params={"state": "all"})
-        response.raise_for_status()
-        pull_requests = response.json()
+        print("\nAll Pull Requests:")
+        page = 1
+        while True:
+            url = f"{BASE_URL}/pulls"
+            response = requests.get(url, params={"state": "all", "per_page": PER_PAGE, "page": page})
+            response.raise_for_status()
+            pull_requests = response.json()
 
-        if pull_requests:
-            print("\nAll Pull Requests:")
+            if not pull_requests:
+                break
+
             for pr in pull_requests:
                 number = pr['number']
                 title = pr['title']
                 state = pr['state']
-                print(f"{number}: {title} [{state}]")
-        else:
-            print("No pull requests found.")
+                print(f"PR #{number}: {title} [{state}]")
+
+            page += 1
+
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching pull requests: {e}")
-
 
 if __name__ == "__main__":
     fetch_commits_and_print_specific_commit_detail()
