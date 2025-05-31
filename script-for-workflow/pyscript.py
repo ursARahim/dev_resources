@@ -2,12 +2,12 @@ import requests
 
 OWNER = "ursARahim"
 REPO = "dev_resources"
+BASE_URL = f"https://api.github.com/repos/{OWNER}/{REPO}"
 
-GITHUB_API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/commits"
-
-def fetch_commits():
+def fetch_commits_and_print_specific_commit_detail():
     try:
-        response = requests.get(GITHUB_API_URL)
+        url = f"{BASE_URL}/commits"
+        response = requests.get(url)
         response.raise_for_status()
         commits = response.json()
         
@@ -18,6 +18,7 @@ def fetch_commits():
             message = latest_commit['commit']['message']
             date = latest_commit['commit']['author']['date']
             
+            print("Latest Commit:")
             print(f"SHA: {sha}")
             print(f"Author: {author}")
             print(f"Message: {message}")
@@ -26,7 +27,26 @@ def fetch_commits():
             print("No commits found.")
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching commits: {e}")
+
+def fetch_all_issues_with_status():
+    try:
+        url = f"{BASE_URL}/issues"
+        response = requests.get(url, params={"state": "all"})
+        response.raise_for_status()
+        issues = response.json()
         
+        if issues:
+            print("\nAll Issues:")
+            for issue in issues:
+                title = issue['title']
+                state = issue['state']
+                number = issue['number']
+                print(f"{number} - {title} [{state}]")
+        else:
+            print("No issues found.")
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred while fetching issues: {e}")
+
 if __name__ == "__main__":
-    fetch_commits()
-            
+    fetch_commits_and_print_specific_commit_detail()
+    fetch_all_issues_with_status()
