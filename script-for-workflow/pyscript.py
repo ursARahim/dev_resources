@@ -38,15 +38,36 @@ def fetch_all_issues_with_status():
         if issues:
             print("\nAll Issues:")
             for issue in issues:
+                number = issue['number']
                 title = issue['title']
                 state = issue['state']
-                number = issue['number']
-                print(f"{number} - {title} [{state}]")
+                print(f"{number}: {title} [{state}]")
         else:
             print("No issues found.")
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching issues: {e}")
 
+def fetch_pull_requests():
+    try:
+        url = f"{BASE_URL}/pulls"
+        response = requests.get(url, params={"state": "all"})
+        response.raise_for_status()
+        pull_requests = response.json()
+
+        if pull_requests:
+            print("\nAll Pull Requests:")
+            for pr in pull_requests:
+                number = pr['number']
+                title = pr['title']
+                state = pr['state']
+                print(f"{number}: {title} [{state}]")
+        else:
+            print("No pull requests found.")
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred while fetching pull requests: {e}")
+
+
 if __name__ == "__main__":
     fetch_commits_and_print_specific_commit_detail()
     fetch_all_issues_with_status()
+    fetch_pull_requests()
