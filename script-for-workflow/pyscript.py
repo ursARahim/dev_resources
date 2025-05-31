@@ -38,6 +38,8 @@ def fetch_all_issues_with_status():
         if issues:
             print("\nAll Issues:")
             for issue in issues:
+                if 'pull_request' in issue:
+                    continue
                 number = issue['number']
                 title = issue['title']
                 state = issue['state']
