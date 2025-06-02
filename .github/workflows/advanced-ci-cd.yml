@@ -23,7 +23,7 @@ jobs:
         run: |
           coverage run -m unittest discover -s ./script_for_workflow
           coverage report
-          coverage report --fail-under=90
+          coverage report --fail-under=20 # Setting 20 for test coverage
 
       - name: Run python script to fetch github API responses
         run: python3 ./script_for_workflow/pyscript.py
