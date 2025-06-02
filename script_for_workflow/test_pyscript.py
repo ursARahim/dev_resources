@@ -1,10 +1,7 @@
 import unittest
 from unittest.mock import patch, Mock
 import requests
-import sys
-import os
 
-sys.path.append(os.path.abspath("../script-for-workflow"))
 import pyscript
 
 class TestGitHubScript(unittest.TestCase):

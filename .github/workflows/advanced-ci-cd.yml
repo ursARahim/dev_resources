@@ -21,9 +21,9 @@ jobs:
 
       - name: Run unit tests and check coverage
         run: |
-          coverage run -m unittest discover -s ./tests
+          coverage run -m unittest discover -s ./script_for_workflow
           coverage report
           coverage report --fail-under=90
 
       - name: Run python script to fetch github API responses
-        run: python3 ./script-for-workflow/pyscript.py
+        run: python3 ./script_for_workflow/pyscript.py
