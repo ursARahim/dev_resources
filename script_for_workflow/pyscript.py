@@ -11,14 +11,14 @@ def fetch_commits_and_print_specific_commit_detail():
         response = requests.get(url)
         response.raise_for_status()
         commits = response.json()
-        
+
         if commits:
             latest_commit = commits[0]
             sha = latest_commit['sha']
             author = latest_commit['commit']['author']['name']
             message = latest_commit['commit']['message']
             date = latest_commit['commit']['author']['date']
-            
+
             print("Latest Commit:")
             print(f"SHA: {sha}")
             print(f"Author: {author}")
@@ -80,7 +80,11 @@ def fetch_pull_requests():
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching pull requests: {e}")
 
-if __name__ == "__main__":
+def main():
+    """Main function to execute all operations"""
     fetch_commits_and_print_specific_commit_detail()
     fetch_all_issues_with_status()
     fetch_pull_requests()
+
+if __name__ == "__main__":
+    main()
