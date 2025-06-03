@@ -5,6 +5,7 @@ import requests
 
 import pyscript
 
+
 class TestGitHubScript(unittest.TestCase):
 
     @patch("pyscript.requests.get")
@@ -49,7 +50,9 @@ class TestGitHubScript(unittest.TestCase):
     @patch("pyscript.requests.get")
     @patch('sys.stdout', new_callable=StringIO)
     def test_fetch_commits_error(self, mock_stdout, mock_get):
-        mock_get.side_effect = requests.exceptions.ConnectionError("Connection failed")
+        mock_get.side_effect = requests.exceptions.ConnectionError(
+            "Connection failed"
+        )
 
         pyscript.fetch_commits_and_print_specific_commit_detail()
 
