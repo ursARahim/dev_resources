@@ -15,10 +15,10 @@ def fetch_commits_and_print_specific_commit_detail():
 
         if commits:
             latest_commit = commits[0]
-            sha = latest_commit['sha']
-            author = latest_commit['commit']['author']['name']
-            message = latest_commit['commit']['message']
-            date = latest_commit['commit']['author']['date']
+            sha = latest_commit["sha"]
+            author = latest_commit["commit"]["author"]["name"]
+            message = latest_commit["commit"]["message"]
+            date = latest_commit["commit"]["author"]["date"]
 
             print("Latest Commit:")
             print(f"SHA: {sha}")
@@ -38,11 +38,9 @@ def fetch_all_issues_with_status():
         page = 1
         while True:
             url = f"{BASE_URL}/issues"
-            response = requests.get(url, params={
-                "state": "all",
-                "per_page": PER_PAGE,
-                "page": page
-            })
+            response = requests.get(
+                url, params={"state": "all", "per_page": PER_PAGE, "page": page}
+            )
             response.raise_for_status()
             issues = response.json()
 
@@ -50,11 +48,11 @@ def fetch_all_issues_with_status():
                 break
 
             for issue in issues:
-                if 'pull_request' in issue:
+                if "pull_request" in issue:
                     continue
-                number = issue['number']
-                title = issue['title']
-                state = issue['state']
+                number = issue["number"]
+                title = issue["title"]
+                state = issue["state"]
                 print(f"Issue #{number}: {title} [{state}]")
 
             page += 1
@@ -69,11 +67,9 @@ def fetch_pull_requests():
         page = 1
         while True:
             url = f"{BASE_URL}/pulls"
-            response = requests.get(url, params={
-                "state": "all",
-                "per_page": PER_PAGE,
-                "page": page
-            })
+            response = requests.get(
+                url, params={"state": "all", "per_page": PER_PAGE, "page": page}
+            )
             response.raise_for_status()
             pull_requests = response.json()
 
@@ -81,9 +77,9 @@ def fetch_pull_requests():
                 break
 
             for pr in pull_requests:
-                number = pr['number']
-                title = pr['title']
-                state = pr['state']
+                number = pr["number"]
+                title = pr["title"]
+                state = pr["state"]
                 print(f"PR #{number}: {title} [{state}]")
 
             page += 1
