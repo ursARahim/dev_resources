@@ -5,6 +5,7 @@ REPO = "dev_resources"
 BASE_URL = f"https://api.github.com/repos/{OWNER}/{REPO}"
 PER_PAGE = 100
 
+
 def fetch_commits_and_print_specific_commit_detail():
     try:
         url = f"{BASE_URL}/commits"
@@ -30,13 +31,18 @@ def fetch_commits_and_print_specific_commit_detail():
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching commits: {e}")
 
+
 def fetch_all_issues_with_status():
     try:
         print("\nAll Issues:")
         page = 1
         while True:
             url = f"{BASE_URL}/issues"
-            response = requests.get(url, params={"state": "all", "per_page": PER_PAGE, "page": page})
+            response = requests.get(url, params={
+                "state": "all",
+                "per_page": PER_PAGE,
+                "page": page
+            })
             response.raise_for_status()
             issues = response.json()
 
@@ -56,13 +62,18 @@ def fetch_all_issues_with_status():
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching issues: {e}")
 
+
 def fetch_pull_requests():
     try:
         print("\nAll Pull Requests:")
         page = 1
         while True:
             url = f"{BASE_URL}/pulls"
-            response = requests.get(url, params={"state": "all", "per_page": PER_PAGE, "page": page})
+            response = requests.get(url, params={
+                "state": "all",
+                "per_page": PER_PAGE,
+                "page": page
+            })
             response.raise_for_status()
             pull_requests = response.json()
 
@@ -80,11 +91,13 @@ def fetch_pull_requests():
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while fetching pull requests: {e}")
 
+
 def main():
     """Main function to execute all operations"""
     fetch_commits_and_print_specific_commit_detail()
     fetch_all_issues_with_status()
     fetch_pull_requests()
+
 
 if __name__ == "__main__":
     main()
