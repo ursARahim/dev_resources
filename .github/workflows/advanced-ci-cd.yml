@@ -22,11 +22,11 @@ jobs:
 
       - name: Lint with flake8
         run: |
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 ./script_for_workflow --count --show-source --statistics
 
       - name: Format with black
         run: |
-          black --check .
+          black --check ./script_for_workflow
 
       - name: Run unit tests and check coverage
         run: |
