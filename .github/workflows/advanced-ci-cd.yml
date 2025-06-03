@@ -18,13 +18,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install coverage
-          exit
 
       - name: Run unit tests and check coverage
         run: |
           coverage run -m unittest discover -s ./script_for_workflow
-          coverage report
-          coverage report --fail-under=20 # Setting 20 for test coverage
+          coverage report --include="script_for_workflow/**"
+          coverage report --fail-under=90
 
       - name: Run python script to fetch github API responses
         run: python3 ./script_for_workflow/pyscript.py
