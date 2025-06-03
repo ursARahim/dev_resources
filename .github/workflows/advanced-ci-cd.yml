@@ -18,6 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install coverage
+          exit
 
       - name: Run unit tests and check coverage
         run: |
