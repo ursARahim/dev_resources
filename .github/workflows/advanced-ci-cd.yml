@@ -62,7 +62,7 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip install coverage, requests
+          pip install coverage requests
 
       - name: Run unit tests and check coverage
         run: |
