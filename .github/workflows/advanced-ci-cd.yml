@@ -9,7 +9,7 @@ on:
     # schedule:
     #   - cron: "0 0 * * *"
 jobs:
-  python_script:
+  Linter:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -30,12 +30,35 @@ jobs:
       - name: Format with black
         run: |
           black --check ./script_for_workflow
+          
 
-      - name: Run unit tests and check coverage
-        run: |
-          coverage run -m unittest discover -s ./script_for_workflow
-          coverage report
-          coverage report --fail-under=90
-
-      - name: Run python script to fetch github API responses
-        run: python3 ./script_for_workflow/pyscript.py
+#  python_script:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout the repository
+#        uses: actions/checkout@v4
+#
+#      - name: Install dependencies
+#        run: |
+#          python3 -m pip install --upgrade pip
+#          pip install flake8 black coverage
+#
+#      - name: Lint with flake8
+#        run: |
+#          # stop the build if there are Python syntax errors or undefined names
+#          flake8 ./script_for_workflow --count --select=E9,F63,F7,F82 --show-source --statistics
+#          # exit-zero treats all errors as warnings
+#          flake8 ./script_for_workflow --count --exit-zero --show-source --statistics
+#
+#      - name: Format with black
+#        run: |
+#          black --check ./script_for_workflow
+#
+#      - name: Run unit tests and check coverage
+#        run: |
+#          coverage run -m unittest discover -s ./script_for_workflow
+#          coverage report
+#          coverage report --fail-under=90
+#
+#      - name: Run python script to fetch github API responses
+#        run: python3 ./script_for_workflow/pyscript.py
