@@ -3,13 +3,14 @@ on:
   push:
     branches:
       - master
+      - '**'
   pull_request:
     branches:
       - master
     # schedule:
     #   - cron: "0 0 * * *"
 jobs:
-  python_script:
+  Linter:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -31,11 +32,29 @@ jobs:
         run: |
           black --check ./script_for_workflow
 
+  Unit_test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install coverage
+
       - name: Run unit tests and check coverage
         run: |
           coverage run -m unittest discover -s ./script_for_workflow
           coverage report
           coverage report --fail-under=90
-
-      - name: Run python script to fetch github API responses
-        run: python3 ./script_for_workflow/pyscript.py
+#
+#  python_script:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout the repository
+#        uses: actions/checkout@v4
+#
+#      - name: Run python script to fetch github API responses
+#        run: python3 ./script_for_workflow/pyscript.py
