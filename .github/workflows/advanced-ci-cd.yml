@@ -12,6 +12,7 @@ on:
 jobs:
   Linter:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
