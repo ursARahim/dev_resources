@@ -12,9 +12,19 @@ on:
 jobs:
   Linter:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10, 3.11, 3.12, 3.13]
+
+    name: Linter on Python ${{ matrix.python-version }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
@@ -35,9 +45,19 @@ jobs:
   Unit_test:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
+    strategy:
+      matrix:
+        python-version: [ 3.9, 3.10, 3.11, 3.12, 3.13 ]
+
+    name: Unit tests on python ${{ matrix.python-version }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
