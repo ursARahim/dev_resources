@@ -1,9 +1,12 @@
 name: Unit Test
 on:
-  workflow_run:
-    workflows: ["Linter"]
-    types:
-      - completed
+  push:
+    branches:
+      - master
+      - '**'
+  pull_request:
+    branches:
+      - master
 #  schedule:
 #    - cron: "0 0 * * *"
 jobs:
