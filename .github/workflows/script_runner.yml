@@ -1,0 +1,16 @@
+name: Script Runner
+on:
+  workflow_run:
+    workflows:
+      ["Linter", "Unit Test"]
+    types:
+      - completed
+jobs:
+  python_script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Run python script to fetch github API responses
+        run: python3 ./script_for_workflow/pyscript.py

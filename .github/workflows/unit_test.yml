@@ -1,0 +1,51 @@
+name: Unit Test
+on:
+  push:
+    branches:
+      - master
+      - '**'
+  pull_request:
+    branches:
+      - master
+#  schedule:
+#    - cron: "0 0 * * *"
+jobs:
+  Unit_test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
+    strategy:
+      matrix:
+        python-version: [ 3.9, '3.10', 3.11, 3.12, 3.13 ]
+
+    name: Unit tests on python ${{ matrix.python-version }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install coverage requests pytest pytest-cov
+
+      - name: Create reports directory
+        run: mkdir -p reports/python-${{ matrix.python-version }}
+
+      - name: Run unit tests and generate XML reports
+        run: |
+            pytest ./script_for_workflow \
+              --junitxml=reports/python-${{ matrix.python-version }}/test-results.xml \
+              --cov=./script_for_workflow \
+              --cov-report=xml:reports/python-${{ matrix.python-version }}/coverage.xml \
+              --cov-fail-under=90
+
+      - name: Upload XML reports as artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: xml-reports-python-${{ matrix.python-version }}
+          path: reports/python-${{ matrix.python-version }}/
