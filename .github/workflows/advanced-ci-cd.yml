@@ -67,14 +67,6 @@ jobs:
       - name: Create reports directory
         run: mkdir -p reports/python-${{ matrix.python-version }}
 
-#      - name: Run unit tests, check coverage and generate XML report
-#        run: |
-#          mkdir -p test-results
-#          coverage run -m xmlrunner unittest discover -s ./script_for_workflow -o test-results
-#          coverage report
-#          coverage report --fail-under=90
-#          coverage xml
-
       - name: Run unit tests and generate XML reports
         run: |
             pytest ./script_for_workflow \
@@ -82,6 +74,13 @@ jobs:
               --cov=./script_for_workflow \
               --cov-report=xml:reports/python-${{ matrix.python-version }}/coverage.xml \
               --cov-fail-under=90
+
+      - name: Upload XML reports as artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: xml-reports-python-${{ matrix.python-version }}
+          path: reports/python-${{ matrix.python-version }}/
 
   python_script:
     runs-on: ubuntu-latest
