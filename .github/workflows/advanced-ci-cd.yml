@@ -62,15 +62,28 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip install coverage unittest-xml-reporting requests
+          pip install coverage requests xmlrunner
 
-      - name: Run unit tests, check coverage and generate XML report
+      - name: Create reports directory
+        run: mkdir -p reports/python-${{ matrix.python-version }}
+
+#      - name: Run unit tests, check coverage and generate XML report
+#        run: |
+#          mkdir -p test-results
+#          coverage run -m xmlrunner unittest discover -s ./script_for_workflow -o test-results
+#          coverage report
+#          coverage report --fail-under=90
+#          coverage xml
+
+      - name: Run unit tests and generate XML reports
         run: |
-          mkdir -p test-results
-          coverage run -m xmlrunner unittest discover -s ./script_for_workflow -o test-results
-          coverage report
+          # Run tests with XML output
+          python -m xmlrunner discover -s ./script_for_workflow -o reports/python-${{ matrix.python-version }}/
+          
+          # Generate coverage XML report
+          coverage run -m unittest discover -s ./script_for_workflow
+          coverage xml -o reports/python-${{ matrix.python-version }}/coverage.xml
           coverage report --fail-under=90
-          coverage xml
 
   python_script:
     runs-on: ubuntu-latest
