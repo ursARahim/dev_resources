@@ -62,7 +62,7 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip install coverage requests xmlrunner
+          pip install coverage requests pytest pytest-cov
 
       - name: Create reports directory
         run: mkdir -p reports/python-${{ matrix.python-version }}
@@ -77,13 +77,11 @@ jobs:
 
       - name: Run unit tests and generate XML reports
         run: |
-          # Run tests with XML output
-          python -m xmlrunner discover -s ./script_for_workflow -o reports/python-${{ matrix.python-version }}/
-          
-          # Generate coverage XML report
-          coverage run -m unittest discover -s ./script_for_workflow
-          coverage xml -o reports/python-${{ matrix.python-version }}/coverage.xml
-          coverage report --fail-under=90
+            pytest ./script_for_workflow \
+              --junitxml=reports/python-${{ matrix.python-version }}/test-results.xml \
+              --cov=./script_for_workflow \
+              --cov-report=xml:reports/python-${{ matrix.python-version }}/coverage.xml \
+              --cov-fail-under=90
 
   python_script:
     runs-on: ubuntu-latest
